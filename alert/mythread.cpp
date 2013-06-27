@@ -11,7 +11,7 @@ void MyThread::run()
     static int a = 0;
     static int b = 0;
     static int c = 0;
-    static int d = 0;
+    static int ifRest = 0;
 
     while (1) {
         msleep(1000);
@@ -19,26 +19,38 @@ void MyThread::run()
         qint8 hour = current.toString("hh").toInt();
         qint8 minute = current.toString("mm").toInt();
 
-        if (hour == 8 && minute <= 30 && d == 0) {
-            emit alert("Attention: Do you want to have a breakfast?");
-            d = 1;
+        switch(hour) {
+        case 8:
+            if (minute < 30 && a == 0) {
+                emit alert("Have you had breakfast yet?");
+                a = 1;
+            }
+            break;
+
+        case 12:
+            if (minute < 10 && b == 0) {
+                emit alert("Have you had lunch yet?");
+                b = 1;
+            }
+            break;
+
+        case 18:
+            if (minute >= 0 && c == 0) {
+                emit alert("Do not forget to sign out!");
+                c = 1;
+            }
+            break;
+
+        default:
+            a = 0, b = 0, c = 0;
+            break;
         }
 
-        if (hour <= 10 && a == 0) {
-            a = 1;
-            QString now = current.toString();
-            emit alert("Attention: " + now + " do not forget to sign in!!!");
-        } else if (hour >= 18 && b == 0) {
-            b = 1;
-            QString now = current.toString();
-            emit alert("Attention: " + now + " do not forget to sign out!!!");
-        }
-
-        if ((minute == 30 || minute == 0) && c == 0) {
+        if ((minute == 30 || minute == 0) && ifRest == 0) {
             emit alert("Need a rest, baby!");
-            c = 1;
+            ifRest = 1;
         } else if (minute % 10 != 0) {
-            c = 0;
+            ifRest = 0;
         }
 
     }
