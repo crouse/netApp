@@ -20,12 +20,15 @@ void MyThread::run()
         qint8 minute = current.toString("mm").toInt();
 
         switch(hour) {
+        case 7:
         case 8:
+        case 9:
             if (minute < 30 && a == 0) {
-                emit alert("Have you had breakfast yet?");
+                emit alert("Have you had breakfast yet? Do not forget to sign in!");
                 a = 1;
             }
             break;
+
 
         case 12:
             if (minute < 10 && b == 0) {
