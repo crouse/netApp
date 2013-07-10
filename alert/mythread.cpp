@@ -20,6 +20,7 @@ void MyThread::run()
         qint8 minute = current.toString("mm").toInt();
 
         switch(hour) {
+        case 6:
         case 7:
         case 8:
         case 9:
@@ -49,7 +50,7 @@ void MyThread::run()
             break;
         }
 
-        if ((minute == 30 || minute == 0) && ifRest == 0) {
+        if ((minute == 30 || minute == 0) && ifRest == 0 && hour > 6 && hour < 20) {
             emit alert("Need a rest, baby!");
             ifRest = 1;
         } else if (minute % 10 != 0) {
