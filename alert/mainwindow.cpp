@@ -24,9 +24,12 @@ MainWindow::~MainWindow()
 
 void MainWindow::doAlert(QString message)
 {
+    /*
     QMessageBox msgBox;
     msgBox.setText(message);
     msgBox.exec();
+    */
+    showMessage("alert", message);
 }
 
 void MainWindow::createTray()
