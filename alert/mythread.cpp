@@ -24,7 +24,7 @@ void MyThread::run()
         case 7:
         case 8:
         case 9:
-            if (minute < 30 && a == 0) {
+            if (a == 0) {
                 emit alert("Have you had breakfast yet? Do not forget to sign in!");
                 a = 1;
             }
@@ -32,21 +32,20 @@ void MyThread::run()
 
 
         case 12:
-            if (minute < 10 && b == 0) {
+            if (b == 0) {
                 emit alert("Have you had lunch yet?");
                 b = 1;
             }
             break;
 
         case 18:
-            if (minute >= 0 && c == 0) {
+            if (c == 0) {
                 emit alert("Do not forget to sign out!");
                 c = 1;
             }
             break;
 
         default:
-            a = 0, b = 0, c = 0;
             break;
         }
 
